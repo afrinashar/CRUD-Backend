@@ -2,11 +2,11 @@
 const mongoose = require('mongoose');
 
 const imageSchema = new mongoose.Schema({
-  first_name: {
+  firstName: {
     type: String,
     required: true
   },
-  last_name: {
+  lastName: {
     type: String,
     required: true
   },
@@ -14,17 +14,17 @@ const imageSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  },is_verified: {
-    type: String,
+  },isVerified: {
+    type: Boolean,
     required: true
   },
   description: {
     type: String
   },
-  // imageUrl: {
-  //   type: String,
-  //   required: true
-  // },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now

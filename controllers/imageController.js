@@ -9,8 +9,8 @@ const imageController = {
       const query = {};
       if (search) {
         query.$or = [
-          { name: { $regex: search, $options: 'i' } },
-          { description: { $regex: search, $options: 'i' } },
+          { firstName: { $regex: search, $options: 'i' } },
+          { isVerified, email, lastName,description: { $regex: search, $options: 'i' } },
         ];
       }
   
@@ -20,59 +20,47 @@ const imageController = {
         .skip((page - 1) * limit);
       res.json(images);
     } catch (err) {
+   //   req.flash('error_msg', 'Server Error');
       console.error(err);
       res.status(500).send('Server Error');
     }
   },
   getImagesById: async (req, res) => {
+
     try {
-      const images = await Image.findById();
+      console.log(req.params.id);
+      const images = await Image.findById(req.params.id);
       res.json(images);
     } catch (err) {
+   //   req.flash('error_msg', 'Server Error');
       console.error(err);
       res.status(500).send('Server Error');
     }
   },
   createImage: async (req, res) => {
-    const { first_name,
-      last_name,
-      email,
-      is_verified,
-      image_url,
-      description, } = req.body;
+    const { firstName, isVerified, email, lastName,description, imageUrl } = req.body;
 
     try {
-      const newImage = new Image({ first_name,
-        last_name,
-        email,
-        is_verified,
-        image_url,
-        description, });
+      const newImage = new Image({ firstName, isVerified, email, lastName,description, imageUrl });
       await newImage.save();
       res.json(newImage);
+    //  req.flash('success_msg', 'Image uploaded successfully');
     } catch (err) {
+     // req.flash('error_msg', 'Server Error');
       console.error(err);
       res.status(500).send('Server Error');
     }
   },
 
   updateImage: async (req, res) => {
-    const { first_name,
-      last_name,
-      email,
-      is_verified,
-      image_url,
-      description, } = req.body;
+    const { firstName, isVerified, email, lastName,description,imageUrl } = req.body;
 
     try {
-      const updatedImage = await Image.findByIdAndUpdate(req.params.id, { first_name,
-        last_name,
-        email,
-        is_verified,
-        image_url,
-        description, }, { new: true });
+      const updatedImage = await Image.findByIdAndUpdate(req.params.id, { firstName, isVerified, email, lastName,description,imageUrl}, { new: true });
       res.json(updatedImage);
+  //    req.flash('success_msg', 'Image updated successfully');
     } catch (err) {
+   //   req.flash('error_msg', 'Server Error');
       console.error(err);
       res.status(500).send('Server Error');
     }
@@ -82,7 +70,9 @@ const imageController = {
     try {
       await Image.findByIdAndRemove(req.params.id);
       res.json({ msg: 'Image removed' });
+   //   req.flash('success_msg', 'Image removed successfully');
     } catch (err) {
+   //   req.flash('error_msg', 'Server Error');
       console.error(err);
       res.status(500).send('Server Error');
     }
