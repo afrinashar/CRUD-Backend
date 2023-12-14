@@ -37,11 +37,13 @@ const imageController = {
       res.status(500).send('Server Error');
     }
   },
-  createImage: async (req, res) => {
-    const { firstName, isVerified, email, lastName,description, imageUrl } = req.body;
-
+  createImage: async function(req, res)  {
+    const { firstName, isVerified, email, lastName,description,imageUrl } = req.body;
+   // console.log(req.body);
+    //const   image  = req.file.imageUrl;
+    
     try {
-      const newImage = new Image({ firstName, isVerified, email, lastName,description, imageUrl });
+      const newImage = new Image({ firstName, isVerified, email, lastName,description, imageUrl  });
       await newImage.save();
       res.json(newImage);
     //  req.flash('success_msg', 'Image uploaded successfully');
@@ -56,7 +58,7 @@ const imageController = {
     const { firstName, isVerified, email, lastName,description,imageUrl } = req.body;
 
     try {
-      const updatedImage = await Image.findByIdAndUpdate(req.params.id, { firstName, isVerified, email, lastName,description,imageUrl}, { new: true });
+      const updatedImage = await Image.findByIdAndUpdate(req.params.id, req.body);
       res.json(updatedImage);
   //    req.flash('success_msg', 'Image updated successfully');
     } catch (err) {
