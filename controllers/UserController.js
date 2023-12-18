@@ -10,6 +10,7 @@ const userController = {
   
    register: async (req, res) => {
     const { firstName, lastName, email, password, userType } = req.body;
+    console.log(firstName, lastName, email, password, userType);
   console.log((req.body),jwt,"req");
     const encryptedPassword = await bcrypt.hash(password, 10);
     try {
