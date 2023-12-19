@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "forever startapp.jss",
-    "start": " forever startapp.js",
+    "dev": "forever start app.jss",
+    "start": " forever start app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
