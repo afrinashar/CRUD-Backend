@@ -35,5 +35,5 @@ app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
 //app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: false }));
  
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
