@@ -14,9 +14,9 @@ const userController = {
   console.log((req.body),jwt,"req");
     const encryptedPassword = await bcrypt.hash(password, 10);
     try {
-      const oldUser = await User.findOne({ email });
+      const oldUser = await User.find( email );
   
-      if (oldUser) {
+      if (!oldUser) {
         return res.json({ error: "User Exists" });
       }
       await User.create({
@@ -28,7 +28,8 @@ const userController = {
       });
       res.send({ status: "User Register" });
     } catch (error) {
-      res.send({ status: "error" });
+      console.log(error);
+      res.status(500).send (error );
     }
   } ,
 

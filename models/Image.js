@@ -16,7 +16,7 @@ const imageSchema = new mongoose.Schema({
     unique: true
   },isVerified: {
     type: Boolean,
-    required: true
+   
   },
   description: {
     type: String

@@ -4,7 +4,7 @@ const Image = require('../models/Image');
 const imageController = {
   getAllImages: async (req, res) => {
     try {
-      const { page = 1, limit = 10, sort, search } = req.query;
+      const { page = 1, limit = 50, sort, search } = req.query;
 
       const query = {};
       if (search) {
@@ -43,6 +43,11 @@ const imageController = {
     //const   image  = req.file.imageUrl;
     
     try {
+      const duplicate = Image.find(email)
+      console.log(duplicate,"good");
+      if(!duplicate){
+        res.status(208).send("email already exist");
+      }
       const newImage = new Image({ firstName, isVerified, email, lastName,description, imageUrl  });
       await newImage.save();
       res.json(newImage);
@@ -58,13 +63,19 @@ const imageController = {
     const { firstName, isVerified, email, lastName,description,imageUrl } = req.body;
 
     try {
+      
+        const duplicate = Image.find(email)
+        console.log(duplicate,"good");
+        if(!duplicate){
+          res.status(304 ).send("email already exist");
+        }
       const updatedImage = await Image.findByIdAndUpdate(req.params.id, req.body);
       res.json(updatedImage);
   //    req.flash('success_msg', 'Image updated successfully');
     } catch (err) {
    //   req.flash('error_msg', 'Server Error');
       console.error(err);
-      res.status(500).send('Server Error');
+      res.status(500).send(err);
     }
   },
 
