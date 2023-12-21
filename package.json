@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "forever start app.jss",
-    "start": " forever start app.js",
+    "dev": "nodemon app.jss",
+    "start": " nodemon start app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
